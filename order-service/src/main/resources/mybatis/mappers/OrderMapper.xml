@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.orderservice.mapper.OrderMapper">
+    <insert id="save">
+        INSERT INTO `order`
+        (order_id,
+         username,
+         delivery_id,
+         transaction_id,
+         invoice_datetime)
+        VALUES (#{orderModel.orderId},
+                #{orderModel.username},
+                #{orderModel.deliveryId},
+                #{orderModel.transactionId},
+                #{orderModel.invoiceDatetime})
+    </insert>
+
+    <update id="updateTransaction">
+        UPDATE `order`
+        SET transaction_id = #{transactionId}
+        WHERE order_id = #{orderId}
+    </update>
+
+    <update id="updateDeliveryId">
+        UPDATE `order`
+        SET delivery_id = #{deliveryId}
+        WHERE order_id = #{orderId}
+    </update>
+
+    <select id="findByIdByXml" resultType="com.example.orderservice.model.OrderModel" parameterType="java.lang.String">
+        SELECT *
+        FROM `order`
+        WHERE `order`.order_id = #{order_id}
+    </select>
+    <select id="getOrderDetail" resultType="com.example.orderservice.model.OrderModel">
+        SELECT *
+        FROM `order`
+        WHERE order_id = #{orderId}
+    </select>
+</mapper>

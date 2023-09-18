@@ -1,0 +1,15 @@
+/.idea/
+/user-point-service/target/classes/org/example/entity/UserPointEntity$UserPointEntityBuilder.class
+/user-point-service/target/classes/org/example/entity/UserPointEntity.class
+/user-point-service/target/classes/org/example/entity/UserPointLogDetailEntity$UserPointLogDetailEntityBuilder.class
+/user-point-service/target/classes/org/example/entity/UserPointLogDetailEntity.class
+/user-point-service/target/classes/org/example/exception/PointNotSufficientException.class
+/user-point-service/target/classes/org/example/exception/UserPointUpdateFailedException.class
+/user-point-service/target/classes/org/example/repository/UserPointLogDetailRepository.class
+/user-point-service/target/classes/org/example/repository/UserPointRepository.class
+/user-point-service/target/classes/org/example/service/UserPointService.class
+/user-point-service/target/classes/org/example/types/UpdateState.class
+/user-point-service/target/classes/org/example/Main.class
+/user-point-service/target/classes/application.properties
+/user-point-service/target/classes/application-dev.properties
+/user-point-service/user-point-service.iml

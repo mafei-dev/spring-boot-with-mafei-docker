@@ -1,0 +1,101 @@
+version: '3'
+services:
+  sbm-api-gateway:
+    container_name: sbm-api-gateway
+    image: mafeidev/sbm-api-gateway:1.0.0
+    ports:
+      - "8080:8080"
+    networks:
+      - sbm
+    environment:
+      - SPRING_PROFILES_ACTIVE=dockerp
+    depends_on:
+      - sbm-eureka-service
+  sbm-eureka-service:
+    container_name: sbm-eureka-service
+    image: mafeidev/sbm-eureka-service:1.0.0
+    ports:
+      - "8085:8085"
+    networks:
+      - sbm
+  sbm-user-service:
+    image: mafeidev/sbm-user-service:1.0.0
+    restart: always
+    environment:
+      - INFO_APP_AUTHOR=MAFEI
+      - SPRING_PROFILES_ACTIVE=dockerp
+    networks:
+      - sbm
+    depends_on:
+      - sbm-api-gateway
+    deploy:
+      mode: replicated
+      replicas: 1
+  sbm-user-point-service:
+    image: mafeidev/sbm-user-point-service:1.0.0
+    restart: always
+    environment:
+      - INFO_APP_AUTHOR=MAFEI
+      - SPRING_PROFILES_ACTIVE=dockerp
+    networks:
+      - sbm
+    depends_on:
+      - sbm-api-gateway
+    deploy:
+      mode: replicated
+      replicas: 1
+  sbm-stock-management-service:
+    image: mafeidev/sbm-stock-management-service:1.0.0
+    restart: always
+    environment:
+      - INFO_APP_AUTHOR=MAFEI
+      - SPRING_PROFILES_ACTIVE=dockerp
+    networks:
+      - sbm
+    depends_on:
+      - sbm-api-gateway
+    deploy:
+      mode: replicated
+      replicas: 1
+  sbm-payment-service:
+    image: mafeidev/sbm-payment-service:1.0.0
+    restart: always
+    environment:
+      - INFO_APP_AUTHOR=MAFEI
+      - SPRING_PROFILES_ACTIVE=dockerp
+    networks:
+      - sbm
+    depends_on:
+      - sbm-api-gateway
+    deploy:
+      mode: replicated
+      replicas: 1
+  sbm-order-service:
+    image: mafeidev/sbm-order-service:1.0.0
+    restart: always
+    environment:
+      - INFO_APP_AUTHOR=MAFEI
+      - SPRING_PROFILES_ACTIVE=dockerp
+    networks:
+      - sbm
+    depends_on:
+      - sbm-api-gateway
+    deploy:
+      mode: replicated
+      replicas: 1
+  sbm-delivery-service:
+    image: mafeidev/sbm-delivery-service:1.0.0
+    restart: always
+    environment:
+      - INFO_APP_AUTHOR=MAFEI
+      - SPRING_PROFILES_ACTIVE=dockerp
+    networks:
+      - sbm
+    depends_on:
+      - sbm-api-gateway
+    deploy:
+      mode: replicated
+      replicas: 1
+networks:
+  sbm:
+    external: true

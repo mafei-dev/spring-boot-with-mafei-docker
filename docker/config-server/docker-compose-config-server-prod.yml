@@ -1,0 +1,12 @@
+version: '3'
+services:
+  sbm-config-server:
+    container_name: sbm-config-server
+    image: mafeidev/sbm-config-server:1.0.0
+    ports:
+      - "8899:8899"
+    networks:
+      - bridge
+networks:
+  bridge:
+    external: true

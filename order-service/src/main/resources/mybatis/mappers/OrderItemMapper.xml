@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.orderservice.mapper.OrderItemMapper">
+
+    <insert id="saveAll" parameterType="java.util.List">
+        INSERT INTO order_item (order_item_id, item_name, item_id, qty, total, order_id)
+        VALUES
+        <foreach collection="itemList" item="item" index="index" separator=",">
+            ( #{item.orderItemId},
+                #{item.itemName},
+                #{item.itemId},
+                #{item.qty},
+                #{item.total},
+                #{item.orderId})
+        </foreach>
+    </insert>
+    <select id="getItemsByOrderId" resultType="com.example.orderservice.model.OrderItemModel">
+        SELECT *
+        FROM order_item
+        WHERE order_id = #{orderId}
+    </select>
+</mapper>

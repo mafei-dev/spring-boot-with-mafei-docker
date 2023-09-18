@@ -1,0 +1,7 @@
+version: '3'
+services:
+  sbm-openzipkin-server:
+    container_name: sbm-openzipkin-server
+    image: openzipkin/zipkin:latest
+    ports:
+      - "9411:9411"

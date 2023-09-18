@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.orderservice.mapper.OrderStatusMapper">
+
+    <insert id="save" parameterType="com.example.orderservice.model.OrderStatusModel">
+        INSERT INTO order_status (order_status_id, order_id, updated_datetime, order_status)
+        VALUES (#{orderStatusModel.orderStatusId},
+                #{orderStatusModel.orderId},
+                #{orderStatusModel.updatedDatetime},
+                #{orderStatusModel.orderStatus})
+    </insert>
+    <select id="getStatusListByOrderId" resultType="com.example.orderservice.model.OrderStatusModel">
+        SELECT *
+        FROM order_status
+        WHERE order_id = #{orderId}
+    </select>
+</mapper>

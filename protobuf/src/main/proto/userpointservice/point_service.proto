@@ -1,0 +1,28 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package userpointservice;
+option java_package = "com.example.userpointservice.service";
+
+message IncreaseUserPointRequest {
+  string username = 1;
+  int32 amount = 2;
+  string reason = 3;
+}
+message IncreaseUserPointResponse{
+  int32 lastAmount = 1;
+}
+
+message IncreaseUserPointRevertRequest {
+  string username = 1;
+  int32 amount = 2;
+  string reason = 3;
+}
+message IncreaseUserPointRevertResponse{
+  int32 lastAmount = 1;
+}
+
+
+service UserPointService{
+  rpc IncreasePoint(IncreaseUserPointRequest) returns (IncreaseUserPointResponse);
+  rpc IncreasePointRevert(IncreaseUserPointRevertRequest) returns (IncreaseUserPointRevertResponse);
+}

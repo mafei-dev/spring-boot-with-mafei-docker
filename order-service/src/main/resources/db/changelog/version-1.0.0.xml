@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <!--    database change log will be stored here-->
+
+    <changeSet author="mafei" id="create_table-order">
+        <createTable
+                remarks="creating order table"
+                tableName="order">
+            <column name="order_id" remarks="the PK of the table" type="varchar(36)">
+                <constraints nullable="false" unique="true" primaryKey="true"/>
+            </column>
+            <column name="username" remarks="who is the user." type="varchar(200)">
+                <constraints  nullable="false"/>
+            </column>
+            <column name="delivery_id"
+                    remarks="the delivery id can be null because it will be updated after saving the data."
+                    type="varchar(36)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="transaction_id"
+                    remarks="the transaction id can be null because, it will be updated after saving the data."
+                    type="varchar(36)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="invoice_datetime" type="datetime(3)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create_table-order_status" author="mafei">
+        <createTable tableName="order_status" remarks="creating order status table.">
+            <column name="order_status_id" type="varchar(36)">
+                <constraints primaryKey="true" unique="true" nullable="false"/>
+            </column>
+            <column name="order_id" type="varchar(36)" remarks="which is the order. FK">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_datetime" type="datetime(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="order_status" remarks="what is the status of order." type="enum(
+            'PROCESSING',
+            'PAYMENT_PROCESSING',
+            'PAYMENT_FAILED',
+            'DELIVERED'
+            )"
+            >
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create_table-order_item" author="mafei">
+        <createTable tableName="order_item">
+            <column name="order_item_id" remarks="the PK of the table." type="varchar(36)">
+                <constraints nullable="false" unique="true" primaryKey="true"/>
+            </column>
+            <column name="item_name" remarks="the name of the item." type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="item_id" remarks="the unique id of the item." type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="qty" remarks="how many item the user bought." type="int">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="total" type="decimal(10,2)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="order_id" remarks="the order id. PK from order table." type="varchar(36)">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+    </changeSet>
+
+
+</databaseChangeLog>

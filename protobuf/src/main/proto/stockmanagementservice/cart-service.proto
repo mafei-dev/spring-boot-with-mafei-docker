@@ -1,0 +1,60 @@
+syntax = "proto3";
+package stockmanagementservice;
+option java_multiple_files = true;
+option java_package = "com.example.stockmanagementservice.grpc";
+
+message AddCartItemRequest{
+  //PK:cartItemId:this will be returned from the backend.
+  string itemCode = 1;
+  string itemName = 2;
+  int32 qty = 3;
+  //who is the owner of the cart.
+  string username = 4;
+}
+message AddCartItemResponse{
+  bool isSuccess = 1;
+}
+
+
+message GetCartItemDetailRequest{
+  //who is the owner of the cart.
+  string username = 1;
+}
+message CartItemDto{
+  //the item details.
+  string cartItemId = 1;
+  string itemCode = 2;
+  string itemName = 3;
+  int32 qty = 4;
+  //qty * unitPrice
+  double total = 5;
+}
+message GetCartItemDetailResponse{
+  string username = 1;
+  string cartId = 2;
+  //list of items.**
+  repeated CartItemDto cartItems = 3;
+}
+message GetCartItemDetailErrorResponse{
+  int32 errorCode = 1;
+  string username = 2;
+  string msg = 3;
+}
+
+message RemoveCartItemRequest{
+  //who is the owner of the cart.
+  string username = 1;
+}
+message RemoveCartItemResponse{
+  bool isSuccess = 1;
+}
+
+//services
+service CartService{
+  //addCartItem(Add new items to the user's cart.)
+  rpc addCartItem(AddCartItemRequest) returns (AddCartItemResponse);
+  //getCartDetail(Get all the items from the user's cart.)
+  rpc getCartDetail(GetCartItemDetailRequest) returns (GetCartItemDetailResponse);
+  //removeItem(Remove all the items from the cart. it will be called after successfully placed the order.)
+  rpc removeItem(RemoveCartItemRequest) returns (RemoveCartItemResponse);
+}

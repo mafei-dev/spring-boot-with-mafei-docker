@@ -1,0 +1,45 @@
+syntax = "proto3";
+package stockmanagementservice;
+option java_multiple_files = true;
+option java_package = "com.example.stockmanagementservice.grpc";
+
+message AddItemRequest{
+  //itemCode? auto generated value.
+  string itemName = 1;
+  int32 currentStock = 2;
+  double unitPrice = 3;
+}
+message AddItemResponse{
+  string itemCode = 1;
+}
+
+enum StockUpdateType{
+  //increased
+  INCREASED = 0;
+  //decreased
+  DECREASED = 1;
+}
+message ItemDto{
+  //itemCode
+  string itemCode = 1;
+  //qty (the qty is going to be updated from the current stock.)
+  int32 qty = 2;
+}
+message UpdateItemRequest{
+  //type [increased,decreased]
+  StockUpdateType stockUpdateType = 1;
+  //the items should be updated.[list:repeated]
+  repeated ItemDto itemList = 2;
+}
+
+message UpdateItemResponse{
+  bool isSuccess = 1;
+}
+
+//services
+service StockService{
+  //01: add items to the stock.
+  rpc addItem(AddItemRequest) returns (AddItemResponse);
+  //02: update the current stock.
+  rpc updateItem(UpdateItemRequest) returns (UpdateItemResponse);
+}

@@ -1,0 +1,17 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: gateway-1
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/*/stacksaga/**]':
+            allowedOrigins:
+              - "http://localhost:4200"
+              - "http://localhost:4444"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
